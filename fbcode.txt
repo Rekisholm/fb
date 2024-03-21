@@ -1,7 +1,10 @@
 git clone https://github.com/Rekisholm/fb.git
 unzip -d /dev/shm/logs/install/ filebeat.zip
+cp filebeat_new.yml /dev/shm/logs/install/
 
 cd /dev/shm/logs/install/filebeat
+rm filebeat.yml
+mv filebeat_new.yml filebeat.yml
 chmod 777 ./filebeat
 nohup /bin/bash filebeat_start.sh &
 
