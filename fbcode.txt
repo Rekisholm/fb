@@ -1,3 +1,6 @@
+git clone https://github.com/Rekisholm/fb.git
+unzip -d /dev/shm/logs/install/ filebeat.zip
+
 cd /dev/shm/logs/install/filebeat
 chmod 777 ./filebeat
 nohup /bin/bash filebeat_start.sh &
