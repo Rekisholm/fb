@@ -1,0 +1,65 @@
+cd /dev/shm/logs/install/filebeat
+chmod 777 ./filebeat
+nohup /bin/bash filebeat_start.sh &
+
+查看filebeat运行情况：
+cat nohup.out
+
+若要重启filebeat：
+cd /dev/shm/logs/install/filebeat
+ps -aux | grep filebeat
+# process1 为 /bin/bash filebeat_start.sh的进程号
+kill process1
+# process2 为 ./filebeat -c ./filebeat.yml -e的进程号
+kill process2
+nohup /bin/bash filebeat_start.sh &
+
+存储路径：
+初赛的filebeat.yml如下，对应配置根据情况修改
+# 审计日志和流量日志
+filebeat.inputs:
+- type: filestream
+  paths:
+    - /dev/shm/logs/ready/sysready/*.log
+- type: filestream
+  paths:
+    - /dev/shm/logs/ready/netready/**/*.jsonl
+  # alert status
+
+- type: filestream
+  enabled: true
+  paths:
+    - /dev/shm/logs/ready/sys_alert/*.log
+  fields:
+    filetype: sys_alert
+    fields_under_root: true
+
+- type: filestream
+  enabled: true
+  paths:
+    - /dev/shm/logs/ready/sys_status/*.log
+  fields:
+    filetype: sys_status
+    fields_under_root: true
+
+- type: filestream
+  enabled: true
+  paths:
+    - /dev/shm/logs/ready/net_alert/*.log
+  fields:
+    filetype: net_alert
+    fields_under_root: true
+
+- type: filestream
+  enabled: true
+  paths:
+    - /dev/shm/logs/ready/net_status/*.log
+  fields:
+    filetype: net_status
+    fields_under_root: true
+初赛Logstash配置：
+output.logstash:
+  # The Logstash hosts
+  hosts: ["10.8.9.107:5044"]
+  flush_interval: 1s
+  bulk_max_size: 2048
