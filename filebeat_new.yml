@@ -185,7 +185,7 @@ setup.kibana:
 # ------------------------------ Logstash Output -------------------------------
 output.logstash:
   # The Logstash hosts
-  hosts: ["47.98.199.83:5044"]
+  hosts: ["10.1.1.64:5044"]
   loadbalance: false
   flush_interval: 1s
   bulk_max_size: 2048
