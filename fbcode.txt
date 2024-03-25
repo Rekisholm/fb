@@ -1,4 +1,4 @@
-git clone https://github.com/Rekisholm/fb.git
+git clone https://github.com/Rekisholm/filebeat.git
 unzip -d /dev/shm/logs/install/ filebeat.zip
 cp filebeat_new.yml /dev/shm/logs/install/filebeat/
 
